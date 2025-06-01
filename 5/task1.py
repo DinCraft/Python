@@ -1,6 +1,8 @@
 from PIL import Image
 from PIL import ImageFile
 from PIL import ImageEnhance
+from PIL import ImageFont
+from PIL import ImageDraw 
 
 def open_image() -> ImageFile:
     while True:
@@ -23,6 +25,8 @@ def help():
     print("5 - Sepia")
     print("6 - Increase brightness")
     print("7 - Decrease brightness")
+    print("8 - Average color")
+    print("9 - Add text")
 
 def run(image: ImageFile) -> ImageFile:
     command = int(input("Enter command: "))
@@ -55,7 +59,45 @@ def run(image: ImageFile) -> ImageFile:
         enhancer = ImageEnhance.Brightness(image)
         factor = float(input("Enter k: "))
         return enhancer.enhance(1 - factor)
+    if command == 8:
+        width, height = image.size
+        pixelData = image.load()
+        r = g = b = 0
+        for x in range(width):
+            for y in range(height):
+                r += pixelData[x, y][0]
+                g += pixelData[x, y][1]
+                b += pixelData[x, y][2]
+        r /= width * height
+        g /= width * height
+        b /= width * height
+        for x in range(width):
+            for y in range(height):
+                pixel = (int(r), int(g), int(b))
+                image.putpixel((x, y), pixel)
+        return image
+    if command == 9:
+        draw = ImageDraw.Draw(image)
+        try:
+            x = int(input("x: ")) 
+            y = int(input("y: "))
+            draw.text((x, y), "Text", (255, 255, 255))
+        except TypeError as e:
+            print(e)
+        return image
+    if command == 10:
+        draw = ImageDraw.Draw(image)
+        try:
+            x1 = int(input("x1: "))
+            y1 = int(input("y1: "))
+            x2 = int(input("x2: "))
+            y2 = int(input("y2: "))
+            draw.rectangle([(x1, y1), (x2, y2)], (255, 0, 0))
+        except TypeError as e:
+            print(e)
+        return image
 
 image = open_image()
+help()
 image = run(image)
 image.show()
