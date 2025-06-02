@@ -54,10 +54,14 @@ def run(image: ImageFile) -> ImageFile:
     if command == 6:
         enhancer = ImageEnhance.Brightness(image)
         factor = float(input("Enter k: "))
+        if factor > 1:
+            factor = 1
         return enhancer.enhance(1 + factor)
     if command == 7:
         enhancer = ImageEnhance.Brightness(image)
         factor = float(input("Enter k: "))
+        if factor > 1:
+            factor = 1
         return enhancer.enhance(1 - factor)
     if command == 8:
         width, height = image.size

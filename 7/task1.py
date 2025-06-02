@@ -2,17 +2,14 @@ import pandas as pd
 
 filename = "7/data_tallest_buildings.csv"
 
-def f_a(data):
-	print(data.sort_values(
-		by='height_m', ascending=False)
-		    .head(5)[['name', 'height_m']])
-	print(data.sort_values(
-		by='height_m', ascending=True)
-		    .head(5)[['name', 'height_m']])
-
 try:
     data = pd.read_csv(filename)
-    f_a(data)
+    print(data.sort_values(
+		by='height_m', ascending=False)
+		    .head(5)[['name', 'height_m']])
+    print(data.sort_values(
+		by='height_m', ascending=True)
+		    .head(5)[['name', 'height_m']])
     heights = data['height_m']
     print(heights.min())
     print(heights.max())

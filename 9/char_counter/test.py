@@ -1,5 +1,5 @@
 import pytest
-from task3 import character_counter
+from task import character_counter
 
 def test_result_character_counter():
     assert character_counter("1123") == 1

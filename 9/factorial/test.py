@@ -1,7 +1,6 @@
 import decimal
 import pytest
-from factorial import factorial
-
+from task import factorial
 
 def test_true_factorial():
 	assert factorial(0) == 1
